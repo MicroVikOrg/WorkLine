@@ -1,0 +1,25 @@
+version: '3.7'
+
+volumes:
+  microvik-data:
+
+networks:
+  microvik-net:
+    driver: bridge
+
+services:
+# CockroachDB Node
+  roach-node:
+    container_name: roach-node
+    image: cockroachdb/cockroach:latest
+    ports:
+      - "8083:8080"
+      - "26257:26257"
+    command: bash -c "cockroach start --insecure --join=roach-node --listen-addr=roach-node:26257 --advertise-addr=roach-node:26257 --max-sql-memory=.25 --cache=.25 && s-/setup_db.sh"
+    environment:
+      ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD}
+    volumes:
+      - ./config/cockroachdb/setup_db.sh:/setup_db.sh
+      - microvik-data:/cockroach/cockroach-data
+    networks:
+      - microvik-net
