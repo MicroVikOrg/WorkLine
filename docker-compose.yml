@@ -200,7 +200,7 @@ services:
     ports:
       - 5000:8080
     networks:
-      - microvik-net
+      - workline-net
     environment:
         ASPNETCORE_ENVIRONMENT: Development
         ASPNETCORE_HTTP_PORTS: 8080
