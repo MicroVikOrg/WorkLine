@@ -1,10 +1,10 @@
 # WorkLine
 The WorkLine is a backend of the project management web-app
 ## Installation
-To install PROmpt locally, follow these steps:
+To install WorkLine locally, follow these steps:
 1. Clone the repository:`git clone https://github.com/MicroVikOrg/WorkLine.git`
 ## Usage
-1. Run the PROmpt `make start`
+1. Run the WorkLine `make start`
 2. If you want to stop all services and delete all volumes: `make clear`
 ## Contributing
 Contributions are welcome! Here's how you can contribute to the WorkLine:
