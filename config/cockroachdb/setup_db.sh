@@ -7,11 +7,7 @@ HOSTPARAMS="--host roach-node --insecure"
 SQL="/cockroach/cockroach.sh sql $HOSTPARAMS"
 
 $SQL -e "CREATE DATABASE worklinedb;"
-$SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS roles (
-    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(64) NOT NULL,
-    description TEXT DEFAULT NULL
-);"
+
 $SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(64) NOT NULL UNIQUE,
@@ -25,6 +21,13 @@ $SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS companies (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     company_name VARCHAR(64) NOT NULL UNIQUE
+);"
+$SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS roles (
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(64) NOT NULL,
+    company_id INT REFERENCES companies(id) ON DELETE CASCADE,
+    description TEXT DEFAULT NULL,
+    UNIQUE (name, company_id)
 );"
 $SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS projects (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -61,7 +64,13 @@ $SQL -d worklinedb -e "CREATE TABLE IF NOT EXISTS users_companies (
     PRIMARY KEY (user_id, company_id)
 );"
 $SQL -d worklinedb -e "CREATE TABLE task_tags (
-    task_id INT REFERENCES tasks(task_id) ON DELETE CASCADE,
-    tag_id INT REFERENCES tags(tag_id) ON DELETE CASCADE,
+    task_id INT REFERENCES tasks(id) ON DELETE CASCADE,
+    tag_id INT REFERENCES tags(id) ON DELETE CASCADE,
     PRIMARY KEY (task_id, tag_id)
+);"
+$SQL -d worklinedb -e "CREATE TABLE user_roles (
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    company_id INT REFERENCES companies(id) ON DELETE CASCADE,
+    role_id INT REFERENCES roles(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, company_id, role_id)
 );"
