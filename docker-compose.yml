@@ -224,6 +224,7 @@ services:
     depends_on:
       - kafka
       - main-db
+      - kong
 # ProjectManager (DEV)
   projectmanager:
     image: vitoog/projectmanager:dev
@@ -246,7 +247,8 @@ services:
     depends_on:
       - kafka
       - main-db
-# ProjectManager (DEV)
+      - kong
+# CompanyManager (DEV)
   companymanager:
     image: vga815/company-manager:dev
     container_name: companymanager
@@ -268,6 +270,7 @@ services:
     depends_on:
       - kafka
       - main-db
+      - kong
 # EmailVerifier
   emailverifier:
     image: aim41tt/email-verifier:latest

@@ -21,8 +21,11 @@ kong-upstreams-configure:
 		--form 'target="usermanager:8080"'
 	curl -i -X POST 127.0.0.1:8001/upstreams/projectmanager_upstream/targets \
 		--form 'target="projectmanager:8080"'
+	curl -i -X POST 127.0.0.1:8001/upstreams/companymanager_upstream/targets \
+		--form 'target="companymanager:8080"'
 	make add-kong-service NAME=usermanager HOST=usermanager_upstream
 	make add-kong-service NAME=projectmanager HOST=projectmanager_upstream
+	make add-kong-service NAME=companymanager HOST=companymanager_upstream
 add-kong-service:
 	curl  -X POST \
   '127.0.0.1:8001/services' \
@@ -31,8 +34,5 @@ add-kong-service:
 	curl -i -X POST '127.0.0.1:8001/services/ \
 		--form 'name=${NAME}' \
 		--form 'host="${HOST}"'
-	
-	curl -i -X POST 127.0.0.1:8001/services/${NAME}/routes \
-		--form 'paths[]=/${NAME}'
 add-kong-jwt:
 	curl -i -X POST 127.0.0.1:8001/services/${NAME}/plugins --form 'name="jwt"'
