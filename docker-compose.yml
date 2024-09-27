@@ -251,12 +251,12 @@ services:
     image: aim41tt/email-verifier:latest
     container_name: email-verifier
     environment:
-      WORKLINE_URL: http://localhost:8000
-      EMAIL_VERIFICATION_TEXT: please verify your email  
+      WORKLINE_URL: http://${KAFKA_BROKER_IP}:5002
+      EMAIL_VERIFICATION_TEXT: "please verify your email "
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BROKER_IP}:9092
       KAFKA_LISTENER_CONCURRENCY: 3
       CONSUMER_GROUP_ID: test
-      WORKLINE_URL_USERMANAGER: http://localhost:8000/usermanager/api/users/check_email
+      WORKLINE_URL_USERMENAGER: http://${KAFKA_BROKER_IP}:5000/api/users/check_email
       GMAIL_USERNAME: 0505mustik@gmail.com
       GMAIL_PASSWORD_APP: nzus qjiq ibkz lkna
     ports:
