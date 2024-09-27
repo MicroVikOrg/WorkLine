@@ -246,6 +246,28 @@ services:
     depends_on:
       - kafka
       - main-db
+# ProjectManager (DEV)
+  companymanager:
+    image: vitoog/company-manager:dev
+    container_name: companymanager
+    ports:
+      - 5003:8080
+    networks:
+      - workline-net
+    environment:
+        ASPNETCORE_ENVIRONMENT: Development
+        ASPNETCORE_HTTP_PORTS: 8080
+#        ASPNETCORE_HTTPS_PORTS: 8081
+        BootstrapServers: ${KAFKA_BROKER_IP}:9092
+        ConnectionString: ${ConnectionString}
+#        ASPNETCORE_Kestrel__Certificates__Default__Password: vga
+#        ASPNETCORE_Kestrel__Certificates__Default__Path: /https/UserManager.pfx
+        JWT_secret: ${JWT_secret}
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    depends_on:
+      - kafka
+      - main-db
 # EmailVerifier
   emailverifier:
     image: aim41tt/email-verifier:latest

@@ -1,5 +1,3 @@
-CREATE DATABASE worklinedb;
-
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY,
     username VARCHAR(64) NOT NULL UNIQUE,
