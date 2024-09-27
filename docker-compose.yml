@@ -248,7 +248,7 @@ services:
       - main-db
 # ProjectManager (DEV)
   companymanager:
-    image: vitoog/company-manager:dev
+    image: vga815/company-manager:dev
     container_name: companymanager
     ports:
       - 5003:8080
