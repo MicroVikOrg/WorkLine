@@ -4,6 +4,8 @@ start:
 	make kong-configure
 clear:
 	docker compose down --volumes
+check:
+	docker compose up -d
 kong-configure:
 	curl -i -X POST http://127.0.0.1:8001/plugins \
 		--data "name=proxy-cache" \
