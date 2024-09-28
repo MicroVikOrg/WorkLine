@@ -6,6 +6,7 @@ To install WorkLine locally, follow these steps:
 ## Usage
 1. Run the WorkLine `make start`
 2. If you want to stop all services and delete all volumes: `make clear`
+3. [Api docs](https://github.com/MicroVikOrg/WorkLine/wiki/Endpoints)
 ## Contributing
 Contributions are welcome! Here's how you can contribute to the WorkLine:
 1. Fork the repository.
