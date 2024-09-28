@@ -1,6 +1,6 @@
 start:
 	docker compose up -d
-	sleep 10
+	sleep 20
 	make kong-configure
 clear:
 	docker compose down --volumes
@@ -29,12 +29,9 @@ kong-upstreams-configure:
 	make add-kong-service NAME=projectmanager HOST=projectmanager_upstream
 	make add-kong-service NAME=companymanager HOST=companymanager_upstream
 add-kong-service:
-	curl  -X POST \
-  '127.0.0.1:8001/services' \
-  --form 'name="usermanager"' \
-  --form 'host="usermanager_upstream"'
-	curl -i -X POST '127.0.0.1:8001/services/ \
+	curl -i -X POST 127.0.0.1:8001/services/ \
 		--form 'name=${NAME}' \
 		--form 'host="${HOST}"'
+	curl -i -X POST 127.0.0.1:8001/services/${NAME}/routes/ --form paths[]="/${NAME}"
 add-kong-jwt:
 	curl -i -X POST 127.0.0.1:8001/services/${NAME}/plugins --form 'name="jwt"'
